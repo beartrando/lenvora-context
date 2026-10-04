@@ -91,6 +91,14 @@ proto/
   (импортирует `contracts/proto/gateway`), `battle.test.ts` в remy/gusteau/speech-to-text
   (импортирует `contracts/proto/battle`).
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `master` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `master`
+  (default-ветка proto — `master`, CI шаг «Update proto submodule» тянет именно её):
+  `gh pr create --base master --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `common/error.proto` — коды ошибок, на которых построен `@shared/errors`.

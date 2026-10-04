@@ -55,6 +55,13 @@
   `speech-to-text.proto` в [../../proto/](../../proto/CONTEXT.md) нет — контракт
   придётся добавлять туда.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/infrastructure/grpc/service.ts` — пустая точка будущей регистрации.

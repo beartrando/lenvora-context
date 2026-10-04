@@ -65,6 +65,13 @@ use-cases (`health`, `status`, `livez`, `readyz`) импортируют кон�
 - Мёртвый код: `src/healthcheck.js` (импортирует несуществующий `contracts/proto/gateway`),
   `request-logger.middleware.ts` не подключён.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/infrastructure/http/server.service.ts` — маршруты и прокси-фоллбэк.

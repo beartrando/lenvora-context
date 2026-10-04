@@ -69,6 +69,13 @@ gRPC-клиентами; контроллеры `infrastructure/proxy/controller
 - `SERVICE_AUTH_URL`, `SERVICE_PROFILE_URL`, `SERVICE_GUSTEAU_URL` — адреса клиентов.
 - Kafka/pg-boss присутствуют только для health: продюсеров/консьюмеров нет.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/infrastructure/proxy/router.ts` — маршрутизация и флаги авторизации.

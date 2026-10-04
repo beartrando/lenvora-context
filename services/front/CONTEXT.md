@@ -80,6 +80,13 @@ services/front/
   повторного Dart-codegen (см. корневой `make proto-generate`, `FLUTTER_SERVICES := front`).
 - front не входит ни в docker-compose, ни в deploy-процесс backend-сервисов.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `lib/infrastructure/http/config/http_config.dart` — адрес gateway.

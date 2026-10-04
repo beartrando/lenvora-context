@@ -71,6 +71,13 @@
 - env: `MESSAGE_PRODUCER_TOPIC_BOT_CONNECTING_REQUEST`, `MESSAGE_CONSUMER_EVENT_FIRED`
   (объявлен в `.env.dist`, но консьюмер не зарегистрирован).
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/infrastructure/websocket/connection.handler.ts` — весь lifecycle соединения.

@@ -61,6 +61,13 @@
 - `createProduct` типизирует зависимость конкретным `PrismaProductRepository`
   (не доменным интерфейсом) — факт, зафиксирован как есть.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/infrastructure/grpc/handlers/gusteau.handler.ts` — вся RPC-поверхность.

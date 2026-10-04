@@ -62,6 +62,13 @@
 - `profile.created` публикуется без `await` (fire-and-forget) вне транзакции — факт.
 - `GetOrCreateUseCase` — точка, где пересекаются Kafka-вход и Kafka-выход.
 
+## Git workflow
+
+- Коммиты делаем в ветку `feature` (не в `dev` напрямую).
+- Пушим в `origin`: `git push origin feature`.
+- Пул-реквест через `gh` из `feature` в `dev`:
+  `gh pr create --base dev --head feature --title "..." --body "..."`.
+
 ## Important files
 
 - `src/application/use-cases/profile/get-or-create.ts` — ядро сервиса.

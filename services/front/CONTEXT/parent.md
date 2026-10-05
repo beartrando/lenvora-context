@@ -1,4 +1,4 @@
 # Parent
 
-[../CONTEXT/](../../CONTEXT/purpose.md) — уровень приложений; шаблон Node-слоёв к front
+[..**/CONTEXT](../..**/CONTEXTpurpose.md) — уровень приложений; шаблон Node-слоёв к front
 **не применяется**.

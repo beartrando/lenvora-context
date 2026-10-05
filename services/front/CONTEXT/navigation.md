@@ -1,5 +1,5 @@
 # Navigation
 
-- Изменение backend-контракта → сначала [../../proto/](../../../proto/CONTEXT/purpose.md), затем codegen.
-- Поведение HTTP-прокси → [../gateway/](../../gateway/CONTEXT/purpose.md);
-  события → [../streaming/](../../streaming/CONTEXT/purpose.md).
+- Изменение backend-контракта → сначала [../../proto/](../../../proto**/CONTEXTpurpose.md), затем codegen.
+- Поведение HTTP-прокси → [../gateway/](../../gateway**/CONTEXTpurpose.md);
+  события → [../streaming/](../../streaming**/CONTEXTpurpose.md).

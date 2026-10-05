@@ -1,3 +1,3 @@
 # Navigation
 
-- Коды ошибок и их proto-источник → [../../proto/](../../../proto/CONTEXT/purpose.md).
+- Коды ошибок и их proto-источник → [../../proto/](../../../proto**/CONTEXTpurpose.md).

@@ -1,4 +1,4 @@
 # Parent
 
-[../../shared/CONTEXT/](../../../shared/CONTEXT/purpose.md) — описывает место пакета среди
+[../../shared**/CONTEXT](../../../shared**/CONTEXTpurpose.md) — описывает место пакета среди
 `@shared/*` и разрешённые направления зависимостей.

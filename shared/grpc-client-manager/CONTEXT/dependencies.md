@@ -1,3 +1,3 @@
 # Dependencies
 
-`@grpc/grpc-js`, [../logger/](../../logger/CONTEXT/purpose.md).
+`@grpc/grpc-js`, [../logger/](../../logger**/CONTEXTpurpose.md).

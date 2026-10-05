@@ -1,4 +1,4 @@
 # Navigation
 
 - Изменение событий → Kafka-конфиги `src/infrastructure/message/configs/`,
-  контракт события → [../../proto/](../../../proto/CONTEXT/purpose.md) (`auth.proto` `UserObject`).
+  контракт события → [../../proto/](../../../proto**/CONTEXTpurpose.md) (`auth.proto` `UserObject`).

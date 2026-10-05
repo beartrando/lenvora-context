@@ -14,5 +14,5 @@
   триггерится из `build-and-push.yml`). Kubernetes-манифестов в репозитории больше нет
   (директория `k8s/` удалена); workflows `deploy-ssh-k8s.yml` (manual) и `deploy-gke.yml`
   сохранены как legacy. `README.md` описывает старый план K3s — это план, не факт.
-- **Codegen**: proto генерируется отдельно для каждого пакета (см. `proto/CONTEXT/`),
+- **Codegen**: proto генерируется отдельно для каждого пакета (см. `proto**/CONTEXT`),
   не централизованно.

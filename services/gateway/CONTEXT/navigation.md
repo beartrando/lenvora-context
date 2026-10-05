@@ -1,4 +1,4 @@
 # Navigation
 
-- Поведение прокси на стороне-приёмнике → [../orchestration/](../../orchestration/CONTEXT/purpose.md).
-- Health-контракт → [../../proto/](../../../proto/CONTEXT/purpose.md) (`common/health.proto`).
+- Поведение прокси на стороне-приёмнике → [../orchestration/](../../orchestration**/CONTEXTpurpose.md).
+- Health-контракт → [../../proto/](../../../proto**/CONTEXTpurpose.md) (`common/health.proto`).

@@ -1,3 +1,3 @@
 # Parent
 
-[../../shared/CONTEXT/](../../../shared/CONTEXT/purpose.md).
+[../../shared**/CONTEXT](../../../shared**/CONTEXTpurpose.md).

@@ -1,9 +1,9 @@
 # Structure
 
 ```
-├── services/            # приложения (см. services/CONTEXT/)
-├── shared/              # библиотеки @shared/* (см. shared/CONTEXT/)
-├── proto/               # контракты (git-submodule, см. proto/CONTEXT/)
+├── services/            # приложения (см. services**/CONTEXT)
+├── shared/              # библиотеки @shared/* (см. shared**/CONTEXT)
+├── proto/               # контракты (git-submodule, см. proto**/CONTEXT)
 ├── make/                # фрагменты Makefile: parameters/kafka/front/terminal
 ├── .github/workflows/   # build-and-push, deploy-docker-compose, deploy-gke,
 │                        # deploy-ssh-k8s (только manual), cleanup-registry, prune

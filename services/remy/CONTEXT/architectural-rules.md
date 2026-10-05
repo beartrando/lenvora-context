@@ -15,5 +15,5 @@
   (порт 50051 на хост не опубликован, функциональный спека с хоста не подключится);
   с хоста работает только юнит: `pnpm --filter remy test -- src/application/use-cases/`.
 - env: `OPENROUTER_API_KEY` (пуст в .env/.env.dist), `AI_BASE_URL`, `AI_MODEL` — заданы с дефолтами.
-- `CONTEXT/` этого сервиса игнорируется git (`.gitignore`: `/CONTEXT/`).
+- `CONTEXT/` этого сервиса игнорируется git (`.gitignore`: `**/CONTEXT`).
 - `seed`-скрипт в package.json указывает на несуществующий путь и `tsx` не в зависимостях (факт, не трогали).

@@ -9,6 +9,6 @@ services/
 │   ├── Dockerfile         # multi-stage: base → deps → dev | build → prod + predeploy
 │   ├── .env.dist          # шаблон env (compose копирует в .env)
 │   └── jest.config.js, tsconfig*.json
-├── front/                 # Flutter: lib/, web/, android/, ios/ … (см. front/CONTEXT/)
+├── front/                 # Flutter: lib/, web/, android/, ios/ … (см. front**/CONTEXT)
 ├── postgres/, pgbouncer/  # конфиги инфраструктуры, не сервисы
 ```

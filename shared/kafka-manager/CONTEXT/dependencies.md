@@ -1,3 +1,3 @@
 # Dependencies
 
-`kafkajs`, [../logger/](../../logger/CONTEXT/purpose.md).
+`kafkajs`, [../logger/](../../logger**/CONTEXTpurpose.md).

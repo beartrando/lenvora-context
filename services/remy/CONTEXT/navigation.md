@@ -1,3 +1,3 @@
 # Navigation
 
-- Шаблон слоёв и правила зависимостей → [../CONTEXT/](../../CONTEXT/purpose.md).
+- Шаблон слоёв и правила зависимостей → [..**/CONTEXT](../..**/CONTEXTpurpose.md).

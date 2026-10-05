@@ -13,7 +13,7 @@
 - Хранения нет: репозитории, Prisma-модели и миграции не добавляются.
 - Тесты — только коллокейтед `src/**/*.spec.ts`; `jest.config.js` приводится к
   remy-образцу (`roots`, `testMatch: ['**/*.spec.ts']`, `moduleNameMapper` для
-  `@shared/*`); `__tests__/` удалён — сейчас в сервисе нет ни одного теста,
-  `pnpm test` падает с «no tests found».
+  `@shared/*`). Сейчас в сервисе нет ни одного теста, `pnpm test` падает
+  с «no tests found».
 - Расширение `ErrorCode` в `proto/common/error.proto` допускается по мере
   необходимости (волновой codegen: proto → `@shared/errors` → потребители).

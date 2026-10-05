@@ -15,7 +15,7 @@
   `mappers/transcription.proto.mapper.ts`, регистрация сервиса в `service.ts`.
 - `src/infrastructure/{message,job}/` — produce события транскрипции через pg-boss-мост.
 - Тесты — только коллокейтед `src/**/*.spec.ts` (конфиг jest в remy-стиле);
-  `__tests__/` с `functional/battle.test.ts` (мёртвый клон чужого проекта) удалён.
+  отдельное тестовое дерево с мёртвым battle-тестом (клон чужого проекта) удалено.
 - Удалённое gusteau-наследие (факт): `domain/{product,food-log,nutrition-coefficient}/`,
   `application/use-cases/{product,food-log,nutrition-coefficient}/`,
   `infrastructure/db/{repositories,mappers}/`, Prisma-модели и миграции

@@ -12,6 +12,6 @@
   аудио-чанков, провайдер OpenAI за интерфейсом, produce `transcription-ready` в Kafka;
   без хранения транскрипций и БД (каркас, реализация в работе).
 - [front/](../front**/CONTEXTpurpose.md) — Flutter-клиент (mobile/desktop/web), отдельная архитектура.
-sdf
+
 Без CONTEXT/ (не являются сервисами): `postgres/`, `pgbouncer/` — только конфиги
 и данные для docker-compose (`pgbouncer.ini`, `userlist.txt`, каталог данных БД).

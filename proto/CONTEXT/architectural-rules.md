@@ -5,10 +5,11 @@
   коммитится в репозиторий потребителя (он не в .gitignore).
 - Сабмодули обновляются вручную/через Makefile и отдельным шагом CI
   (`build-and-push.yml`: «Update proto submodule»).
-- Фактические несоответствия: `remy` и `speech-to-text` не имеют собственных `.proto`
-  (поэтому их бизнес-RPC незарегистрированы); `streaming.proto` не определяет сервис;
-  сгенерированный набор в каждом сервисе **полный** (все 5 сервисов + common), хотя
+- Фактические несоответствия: `streaming.proto` не определяет сервис; сгенерированный
+  набор в каждом сервисе **полный** (все определённые сервисы + common), хотя
   используется подмножество.
+- `speech-to-text.proto` — контракт bidi-потока чанков (первый stream/bidi RPC проекта);
+  добавляется до регистрации RPC, ошибки в потоке — `common.error.ErrorObject`.
 - Мёртвые ссылки на несуществующие контракты: `gateway/src/healthcheck.js`
-  (импортирует `contracts/proto/gateway`), `battle.test.ts` в remy/gusteau/speech-to-text
+  (импортирует `contracts/proto/gateway`), `battle.test.ts` в gusteau/speech-to-text
   (импортирует `contracts/proto/battle`).

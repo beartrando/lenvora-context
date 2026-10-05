@@ -5,3 +5,4 @@
 - `isRecoverableError`: `UNAVAILABLE`, `DEADLINE_EXCEEDED`, `RESOURCE_EXHAUSTED`,
   `ABORTED`, `INTERNAL` с «connection»/«timeout» в details.
 - Типы `GrpcClientFactory<T>`, `GrpcCall<TClient, TResult>`.
+- Только unary: потоковые (stream/bidi) вызовы пакет не обслуживает.

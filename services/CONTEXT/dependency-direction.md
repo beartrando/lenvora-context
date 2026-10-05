@@ -45,12 +45,18 @@ graceful shutdown по SIGINT/SIGTERM.
 
 ## Межсервисная топология (фактическая)
 
-- `front` → HTTP `gateway:9090` и WebSocket `streaming:8080`.
+- `front` → HTTP `gateway:9090` и WebSocket `streaming:8080` (туда же — аудио-чанки
+  для распознавания речи).
 - `gateway` → gRPC `orchestration.Proxy` (прокси всего HTTP-трафика); плюс health-фан-аут
   по всем `SERVICE_*_URL`.
 - `orchestration` → gRPC клиенты `auth` и `profile` (через `@shared/grpc-client-manager`).
 - `streaming` → gRPC `profile` (проверка профиля по токену).
+- `streaming` → gRPC bidi-поток `speech-to-text` (`SERVICE_SPEECH_TO_TEXT_URL`):
+  форвардинг аудио-чанков, первым сообщением идёт auth (`profile_id` + JWT), финальная
+  транскрипция возвращается клиенту по WS. Клиент отдельный (не через
+  `@shared/grpc-client-manager` — он unary-only).
 - Kafka: `auth` produce `user.created` → `profile` consume; `profile` produce
-  `profile.created`; `streaming` produce `bot.connecting-request`. Отправка в Kafka идёт
+  `profile.created`; `streaming` produce `bot.connecting-request`;
+  `speech-to-text` produce `speech-to-text.transcription-ready`. Отправка в Kafka идёт
   через pg-boss → Kafka-мост (`@shared/pg-boss-manager`), а не напрямую.
 - Каждый сервис регистрирует gRPC `Health` (`proto/common/health.proto`) на `:50051`.

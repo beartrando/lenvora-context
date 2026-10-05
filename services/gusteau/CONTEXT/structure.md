@@ -6,5 +6,3 @@
 - `src/application/use-cases/{product,food-log,nutrition-coefficient}/` — 6 use-cases + health.
 - `src/infrastructure/db/repositories/prisma-*.repository.ts`, `prisma/schema.prisma`.
 - Kafka/pg-boss: конфиги пустые (нет топиков), используется только health-проверка.
-- Тесты: `__tests__/functional/battle.test.ts` — нерабочая копия (импортирует
-  несуществующие `contracts/proto/battle`, `domain/battle`).

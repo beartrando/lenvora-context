@@ -13,7 +13,15 @@
   remy.handler.spec.ts` (реальный gRPC на localhost:50051). Полный набор — изнутри
   контейнера: `docker compose exec -T -w /usr/src/app/services/remy remy pnpm test`
   (порт 50051 на хост не опубликован, функциональный спека с хоста не подключится);
-  с хоста работает только юнит: `pnpm --filter remy test -- src/application/use-cases/`.
-- env: `OPENROUTER_API_KEY` (пуст в .env/.env.dist), `AI_BASE_URL`, `AI_MODEL` — заданы с дефолтами.
+  с хоста работают юниты: `pnpm --filter remy test -- src/application/use-cases/
+  src/infrastructure/ai`.
+- env: `OPENROUTER_API_KEY`, `AI_BASE_URL`, `AI_MODEL` есть в `.env.dist`, но код их
+  больше не читает: `AiConfig` в `AiService` передаётся явно (env-конфиг удалён).
 - `CONTEXT/` этого сервиса игнорируется git (`.gitignore`: `**/CONTEXT`).
-- `seed`-скрипт в package.json указывает на несуществующий путь и `tsx` не в зависимостях (факт, не трогали).
+- Мёртвый код удалён (недостижимые из `app.ts`/тестов): `domain/`,
+  `application/ports/`, `infrastructure/auth/`, `infrastructure/ai/configs/`,
+  `message/config.ts`, `message/interfaces/use-case.interface.ts`,
+  `job/configs/job.consumers.config.ts`, пустой `db/seed/` и скрипт `seed`.
+  Проверка — обход графа импортов от `app.ts` + спецификаций: недостижимых
+  TS-файлов не осталось (кроме сгенерированных `contracts/proto/*` и оставленного
+  по решению `db/{config,service}.ts`).

@@ -9,6 +9,9 @@ proto/
 │                        # + enum EventName, message EventObject (событийная модель)
 ├── streaming.proto      # service отсутствует: только EventRequest/EventResponse
 │                        # (oneof: gusteau.EventObject | empty | error)
+├── remy.proto           # service Remy: Process(RemyRequest) → RemyResponse
+├── speech-to-text.proto # service SpeechToText: bidi-поток аудио-чанков
+│                        # (добавляется — контракт реализации STT)
 └── common/
     ├── health.proto     # service Health: Check, Status, Livez, Readyz
     ├── error.proto      # ErrorObject + ErrorCode (база для @shared/errors)

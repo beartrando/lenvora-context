@@ -1,6 +1,14 @@
 # Responsibility
 
-- gRPC-сервер `Health` на `:50051` (бизнес-RPC не зарегистрированы:
-  `registerSpeechToTextService()` пуст, `SpeechToTextHandler` — заглушка без методов).
-- Структура сервиса: Prisma-модели `Product`/`NutritionCoefficient`/`FoodLog` (БД
-  `speech-to-text`), домен и use-cases продуктовой модели — клоны gusteau.
+- gRPC `:50051`: bidi-поток распознавания (`proto/speech-to-text.proto`) и `Health`.
+- Авторизация ровно один раз при открытии потока: первым сообщением клиент присылает
+  `profile_id` + JWT, сервис проверяет принадлежность токена профилю; дальнейшая работа
+  идёт по `profile_id`, повторно JWT не проверяется.
+- Приём аудио-чанков → внешний STT-провайдер (порт `TranscriberPort`) → финальная
+  транскрипция в ответном потоке + Kafka-событие
+  `speech-to-text.transcription-ready` (через pg-boss-мост).
+- Хранения нет: репозиториев, Prisma-моделей и миграций не создаётся. gusteau-наследие
+  (продукты, food-log, nutrition-coefficient: домен, use-case'ы, репозитории, мапперы,
+  Prisma-модели и миграции) удалено.
+- Слои по общему шаблону; изоляция провайдера — `infrastructure/stt/`
+  (образец — `remy/src/infrastructure/ai/`).

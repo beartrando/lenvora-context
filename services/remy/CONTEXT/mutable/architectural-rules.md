@@ -15,13 +15,6 @@
   (порт 50051 на хост не опубликован, функциональный спека с хоста не подключится);
   с хоста работают юниты: `pnpm --filter remy test -- src/application/use-cases/
   src/infrastructure/ai`.
-- env: `OPENROUTER_API_KEY`, `AI_BASE_URL`, `AI_MODEL` есть в `.env.dist`, но код их
-  больше не читает: `AiConfig` в `AiService` передаётся явно (env-конфиг удалён).
+- env: `OPENROUTER_API_KEY`, `AI_BASE_URL`, `AI_MODEL` есть в `.env.dist`; код их не
+  читает — `AiConfig` в `AiService` передаётся явно.
 - `CONTEXT/` этого сервиса игнорируется git (`.gitignore`: `**/CONTEXT`).
-- Мёртвый код удалён (недостижимые из `app.ts`/тестов): `domain/`,
-  `application/ports/`, `infrastructure/auth/`, `infrastructure/ai/configs/`,
-  `message/config.ts`, `message/interfaces/use-case.interface.ts`,
-  `job/configs/job.consumers.config.ts`, пустой `db/seed/` и скрипт `seed`.
-  Проверка — обход графа импортов от `app.ts` + спецификаций: недостижимых
-  TS-файлов не осталось (кроме сгенерированных `contracts/proto/*` и оставленного
-  по решению `db/{config,service}.ts`).

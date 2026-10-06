@@ -6,4 +6,4 @@
 - Образец изоляции провайдера → [../remy/](../../remy**/CONTEXTpurpose.md)
   (`src/infrastructure/ai/`).
 - Прототип, из которого клонировался сервис → [../gusteau/](../../gusteau**/CONTEXTpurpose.md)
-  (форма слоёв; gusteau-наследие удалено).
+  (форма слоёв).

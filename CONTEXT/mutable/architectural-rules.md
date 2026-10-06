@@ -11,8 +11,7 @@
   docker-compose (`src`, `package.json`, jest-конфиги remy, `shared`) и пересоздаются
   через `docker compose up -d`.
 - **Деплой**: активен путь docker-compose поверх SSH (`deploy-docker-compose.yml`,
-  триггерится из `build-and-push.yml`). Kubernetes-манифестов в репозитории больше нет
-  (директория `k8s/` удалена); workflows `deploy-ssh-k8s.yml` (manual) и `deploy-gke.yml`
-  сохранены как legacy. `README.md` описывает старый план K3s — это план, не факт.
+  триггерится из `build-and-push.yml`); workflows `deploy-ssh-k8s.yml` (manual) и
+  `deploy-gke.yml` — legacy. `README.md` описывает план K3s — это план, не факт.
 - **Codegen**: proto генерируется отдельно для каждого пакета (см. `proto**/CONTEXT`),
   не централизованно.

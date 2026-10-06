@@ -58,8 +58,7 @@
 
 ### Сценарий: в модуле нет чтения окружения
 
-- Дано в `src/infrastructure/ai/` нет обращений к `process.env`
-  (env-конфиг `configs/openrouter.ts` удалён как мёртвый код).
+- Дано в `src/infrastructure/ai/` нет обращений к `process.env`.
 - Когда нужен доступ к провайдеру.
 - Тогда вызывающая сторона сама собирает `AiConfig { apiKey, baseUrl, model }`
   и передаёт его в `new AiService(config)`.

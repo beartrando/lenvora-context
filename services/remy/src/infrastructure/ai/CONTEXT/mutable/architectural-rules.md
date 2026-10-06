@@ -4,8 +4,7 @@
   выход — строка. Всё, что связано с контрактом `Process`, живёт в use-case и хендлере.
 - Новый провайдер добавляется только через `AiClient` + ветка в `createAiClient`;
   потребители не должны импортировать `clients/openrouter.ts` напрямую.
-- Модуль не читает env: конфиг (`AiConfig`) передаётся в `AiService` явно,
-  env-конфиг `configs/openrouter.ts` удалён как мёртвый код.
+- Модуль не читает env: конфиг (`AiConfig`) передаётся в `AiService` явно.
 - Модуль не подключён: `src/application/use-cases/process/process.ts` — эхо-заглушка,
   TODO на `infrastructure/ai`. Подключение = порт в `application/` + wiring в
   `composition/build-application.ts` (по шаблону gusteau), плюс замена заглушки.

@@ -10,6 +10,3 @@
   используется подмножество.
 - `speech-to-text.proto` — контракт bidi-потока чанков (первый stream/bidi RPC проекта);
   добавляется до регистрации RPC, ошибки в потоке — `common.error.ErrorObject`.
-- Мёртвые ссылки на несуществующие контракты: `gateway/src/healthcheck.js`
-  (импортирует `contracts/proto/gateway`), `battle.test.ts` в gusteau/speech-to-text
-  (импортирует `contracts/proto/battle`).

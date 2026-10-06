@@ -1,6 +1,6 @@
 # Structure
 
-Слои по шаблону родителя; STT-специфика вместо gusteau-наследия — реализовано:
+Слои по шаблону родителя; специфика speech-to-text вместо gusteau-наследия — реализовано:
 
 - `proto/speech-to-text.proto` (сабмодуль proto) → codegen в `src/contracts/proto/`.
 - `src/domain/audio/`, `src/domain/transcription/` — VO (`audio-data`, `mime-type`,
@@ -8,13 +8,14 @@
   интерфейсов репозиториев нет.
 - `src/application/ports/transcriber.port.ts` — единственный край к провайдеру;
   `use-cases/transcription/*` — валидация → порт → entity.
-- `src/infrastructure/stt/` — `interfaces/`, `configs/stt.config.ts`,
-  `providers/openai.ts`, `create-stt-client.ts`, `mappers/`, `service.ts`.
+- `src/infrastructure/speech-to-text/` — `interfaces/`,
+  `configs/speech-to-text.config.ts`, `providers/openai.ts`,
+  `create-speech-to-text-client.ts`, `mappers/`, `service.ts`.
 - `src/infrastructure/grpc/` — bidi-хендлер `handlers/speech-to-text.handler.ts`
   (профиль из `audio_start`, последовательная обработка сообщений, буферизация
   чанков, транскрипция на `audio_stop`, регистрация сессии в
-  `streams/engine.stream.container.ts`), `mappers/transcription.proto.mapper.ts`,
-  регистрация RPC в `service.ts`.
+  `streams/speech-to-text.stream.container.ts`), `mappers/transcription.proto.mapper.ts`,
+  тип потока `types/speech-to-text.stream.ts`, регистрация RPC в `service.ts`.
 - `src/infrastructure/{message,job}/` — produce события транскрипции через pg-boss-мост.
 - Тесты — только коллокейтед `src/**/*.spec.ts` (конфиг jest: ts-jest +
   `tsconfig.test.json`); отдельное тестовое дерево с мёртвым battle-тестом

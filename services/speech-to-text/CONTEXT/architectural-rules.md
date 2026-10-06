@@ -11,9 +11,10 @@
   orchestration). Повторный `audio_start` — новая реплика (буферы сбрасываются),
   смена `profile_id` в рамках потока запрещена.
 - Провайдер (OpenAI) изолирован: `application/ports/transcriber.port.ts` +
-  `infrastructure/stt/` с фабрикой `create-stt-client.ts`. Смена провайдера = новый
-  файл в `providers/` + строка в фабрике + `STT_PROVIDER` в env; типы провайдера не
-  выходят за пределы `infrastructure/stt/`.
+  `infrastructure/speech-to-text/` с фабрикой `create-speech-to-text-client.ts`.
+  Смена провайдера = новый файл в `providers/` + строка в фабрике +
+  `SPEECH_TO_TEXT_PROVIDER` в env; типы провайдера не
+  выходят за пределы `infrastructure/speech-to-text/`.
 - Хранения нет: репозитории, Prisma-модели и миграции не добавляются.
 - Тесты — только коллокейтед `src/**/*.spec.ts` (`jest.config.js`: ts-jest +
   `tsconfig.test.json`); набор покрывает bidi-хендлер — валидации протокола,

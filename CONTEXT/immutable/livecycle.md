@@ -1,6 +1,10 @@
 # Lifecycle тикета
 
-DevOrc работает только с тикетами, находящимися в `Todo` инфраструктурного проекта.
+Доска проекта: https://github.com/users/beartrando/projects/4/views/1 — GitHub Project `beartrando` #4.
+
+Используемые колонки: `Todo`, `In Progress`, `Clarification`, `Review`.
+
+DevOrc работает только с тикетами, находящимися в колонке `Todo` доски проекта.
 
 ## Получение тикета
 

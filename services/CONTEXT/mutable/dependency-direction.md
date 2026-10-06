@@ -52,9 +52,7 @@ graceful shutdown по SIGINT/SIGTERM.
 - `orchestration` → gRPC клиенты `auth` и `profile` (через `@shared/grpc-client-manager`).
 - `streaming` → gRPC `profile` (проверка профиля по токену).
 - `streaming` → gRPC bidi-поток `speech-to-text` (`SERVICE_SPEECH_TO_TEXT_URL`):
-  форвардинг аудио-чанков, первым сообщением идёт `audio_start` (`profile_id`
-  авторизованной WS-сессии; без JWT — авторизация на стороне streaming),
-  финальная
+  форвардинг аудио-чанков, первым сообщением идёт auth (`profile_id` + JWT), финальная
   транскрипция возвращается клиенту по WS. Клиент отдельный (не через
   `@shared/grpc-client-manager` — он unary-only).
 - Kafka: `auth` produce `user.created` → `profile` consume; `profile` produce

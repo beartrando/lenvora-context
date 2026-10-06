@@ -10,7 +10,7 @@
 - [remy/](../remy**/CONTEXTpurpose.md) — AI-бот; gRPC Health, клиент OpenRouter (не подключён).
 - [speech-to-text/](../speech-to-text**/CONTEXTpurpose.md) — распознавание речи: bidi-gRPC-поток
   аудио-чанков, провайдер OpenAI за интерфейсом, produce `transcription-ready` в Kafka;
-  без хранения транскрипций и БД, без авторизации (профиль приходит в `audio_start`).
+  без хранения транскрипций и БД (каркас, реализация в работе).
 - [front/](../front**/CONTEXTpurpose.md) — Flutter-клиент (mobile/desktop/web), отдельная архитектура.
 
 Без CONTEXT/ (не являются сервисами): `postgres/`, `pgbouncer/` — только конфиги

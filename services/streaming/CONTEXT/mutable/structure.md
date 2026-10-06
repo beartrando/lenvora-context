@@ -9,10 +9,5 @@
   `src/infrastructure/grpc/clients/speech-to-text.client.ts` (bidi, отдельный
   grpc-js клиент — `GrpcClientManager` потоки не поддерживает), `helpers/auth.helper.ts`.
 - `src/application/use-cases/auth/authorize-profile.ts`,
-  `use-cases/websocket/websocket-disconnect.ts`,
-  `use-cases/voice/voice-stream.ts` — голосовая сессия: ленивый open стрима
-  speech-to-text на `audio_start`, инжект `profile_id` в `audio_start`,
-  доставка транскрипции/ошибок по WS тем же `EventResponse`-контрактом
-  (парный тест `voice-stream.spec.ts`).
-- Тесты — коллокейтед `src/**/*.spec.ts`; `job.config.ts` лежит в корне `job/`
-  (не в `configs/`).
+  `use-cases/websocket/websocket-disconnect.ts`.
+- Тестов нет; `job.config.ts` лежит в корне `job/` (не в `configs/`).

@@ -13,6 +13,5 @@
   `createAiClient`, сетевых вызовов нет): `pnpm --filter remy test -- src/infrastructure/ai`.
 - `tsc --noEmit` / `pnpm --filter remy build` — зелёные; подозрительно чистый вывод
   диагностики проверять осознанно (см. architectural-rules сервиса remy).
-- `CONTEXT/` этого модуля хранится только в репозитории контекста
-  (`context/services/remy/src/infrastructure/ai/CONTEXT/`, подмодуль `context/`);
-  коллокейтед-копий в рабочем дереве remy нет.
+- `CONTEXT/` этого модуля хранится в репозитории контекста:
+  `context/services/remy/src/infrastructure/ai/CONTEXT/` (подмодуль `context/`).

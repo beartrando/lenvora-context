@@ -1,6 +1,9 @@
 # Navigation
 
-- Шаблон слоёв и правила зависимостей → [../../../CONTEXT](../../../CONTEXT/purpose.md).
-- Как подключить реальный AI вместо эхо-заглушки → [architectural-rules.md](architectural-rules.md),
-  `src/application/use-cases/process/process.ts` (TODO там).
-- Логика модуля сценариями → [responsibility.md](responsibility.md).
+- Родитель: [remy](../../../purpose.md)
+- Уровень: [services/](../../../../purpose.md)
+- Корень: [корень](../../../../../purpose.md)
+- Контракты: [proto](../../../../../proto/purpose.md)
+- Общие библиотеки: [shared](../../../../../shared/purpose.md)
+
+Порядок чтения: purpose → structure → entry-points → architectural-rules.

@@ -1,12 +1,11 @@
 # Dependencies
 
-`@shared/{logger,errors,kafka-manager,pg-boss-manager}`, `jsonwebtoken`,
-`@grpc/grpc-js` (сервер). `ws` заявлен, но не используется — WebSocket живёт в streaming.
+Внутри монорепозитория:
 
-- `@prisma/client` и БД: транскрипты не хранятся (`schema.prisma` без моделей);
-  зависимость, `prisma`-секция и запись `speech-to-text` в `PRISMA_SERVICES`
-  (корневой `make/parameters.mk`) убираются при реализации — сейчас в
-  `package.json`/`.env.dist`/Dockerfile ещё есть.
-- `grpc-client-manager` не нужен: сервис не делает исходящих gRPC-вызовов.
-- Kafka — только produce события транскрипции через pg-boss-мост
-  (`MESSAGE_PRODUCER_...=speech-to-text.transcription-ready`).
+- [proto](../../proto/purpose.md) — контракт `speech-to-text`, `common`.
+- [shared](../../shared/purpose.md): `logger`, `errors`, `kafka-manager`, `pg-boss-manager`.
+- Исходящих gRPC-клиентов к сервисам нет; входящий поток открывает [streaming](../streaming/purpose.md).
+
+Внешние пакеты: `@grpc/grpc-js`, `ts-proto`, `@prisma/client`, `kafkajs`, `pg-boss`, `jsonwebtoken`, `ws`, `cookie-parser`, `cors`. SDK распознавания речи (OpenAI/Whisper и аналоги) в `package.json` отсутствует.
+
+Инфраструктура: PostgreSQL через pgbouncer (очереди pg-boss), Kafka (`KAFKA_BROKERS`), gRPC-порт 50051. `MESSAGE_PRODUCER_EVENT_FIRED` и `PG_BOSS_WEBSOCKET_SEND_EVENT` объявлены в `.env.dist`, но конфигами тем не читаются.

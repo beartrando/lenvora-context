@@ -1,15 +1,13 @@
 # Structure
 
-```
-ai/
-├── service.ts                        # AiService: фабрика клиента + process(text)
-├── service.spec.ts                   # юнит: конструктор через фабрику, делегирование chat
-├── clients/
-│   ├── create-ai-client.ts           # createAiClient(config) → OpenRouterClient
-│   └── openrouter.ts                 # OpenRouterClient: SDK openai, chat.completions.create
-└── interfaces/
-    ├── ai-client.interface.ts        # AiClient.chat(messages) → Promise<string>
-    └── ai-config.interface.ts        # AiConfig { apiKey, baseUrl, model }
-```
+Маленький инфраструктурный узел из семи файлов:
 
-`CONTEXT/` — этот каталог, git-игнорируется (`.gitignore` сервиса: `**/CONTEXT`).
+- `service.ts` — фасад `AiService`: конструктор берёт `AiConfig`, создаёт клиент через фабрику, делегирует `chat`.
+- `clients/create-ai-client.ts` — фабрика, возвращает `OpenRouterClient`.
+- `clients/openrouter.ts` — `OpenRouterClient`: SDK `openai` с `apiKey` и `baseURL`, вызов `chat.completions.create`.
+- `configs/openrouter.ts` — `aiConfig`, читает env.
+- `interfaces/ai-client.interface.ts` — порт `AiClient` (`chat(messages): Promise<string>`).
+- `interfaces/ai-config.interface.ts` — тип `AiConfig` `{ apiKey, baseUrl, model }`.
+- `service.spec.ts` — юнит-тесты фасада (мок `createAiClient`).
+
+Своих подкаталогов и зависимостей от домена сервиса нет; каталог не имеет других файлов.

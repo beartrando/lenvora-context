@@ -1,11 +1,10 @@
 # Dependency direction
 
-Схема потребления:
+```text
+proto/ → (ничего внутри монорепы)
 
-- `services/*` → здесь **на этапе codegen**: `pnpm <svc> proto:generate`
-  (protoc + ts-proto, `outputServices=grpc-js`) → `src/contracts/proto/`.
-- `shared/errors` → здесь на codegen (только `common/error.proto`, `outputServices=none`).
-- `services/front` → здесь на codegen (protoc `--dart_out=grpc`) в `lib/contracts/proto/`.
-- Docker: каждый Dockerfile копирует `proto/` и запускает codegen на стадии `deps`.
-- Обратных рантайм-зависимостей нет; правка `.proto` не ломает компиляцию, пока
-  codegen не перезапущен.
+services/ ← proto/   (генерация кода из контрактов)
+front     ← proto/   (protoc --dart_out)
+```
+
+proto/ — нижний уровень: контракты не зависят от реализаций, потребители зависят от контрактов. Ссылки вверх только на [корень](../purpose.md) как источник команды генерации.

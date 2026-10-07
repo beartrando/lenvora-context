@@ -1,19 +1,22 @@
 # Structure
 
-```
+```text
 proto/
-├── auth.proto           # service Auth: Logout, RefreshTokens, AnonymousSignIn, Get
-├── profile.proto        # service Profile: GetByUser, Get, GetOrCreate (использует auth.UserIdRequest)
-├── orchestration.proto  # service Orchestration: Proxy(ProxyRequest)→ProxyResponse
-├── gusteau.proto        # service Gusteau: 6 RPC (products/nutrition/food-log)
-│                        # + enum EventName, message EventObject (событийная модель)
-├── streaming.proto      # service отсутствует: только EventRequest/EventResponse
-│                        # (oneof: gusteau.EventObject | empty | error)
-├── remy.proto           # service Remy: Process(RemyRequest) → RemyResponse
-├── speech-to-text.proto # service SpeechToText: bidi-поток аудио-чанков
-│                        # (добавляется — контракт реализации STT)
-└── common/
-    ├── health.proto     # service Health: Check, Status, Livez, Readyz
-    ├── error.proto      # ErrorObject + ErrorCode (база для @shared/errors)
-    ├── empty.proto, response.proto, key_value.proto, ping.proto
+├── auth.proto
+├── gusteau.proto
+├── orchestration.proto
+├── profile.proto
+├── remy.proto
+├── speech-to-text.proto
+├── streaming.proto
+├── common/
+│   ├── empty.proto
+│   ├── error.proto
+│   ├── health.proto
+│   ├── key_value.proto
+│   ├── ping.proto
+│   └── response.proto
+└── .gitignore
 ```
+
+Каждый файл — `syntax = "proto3"`; у `<service>.proto` `package` = имя сервиса, у `common/*` — `common.<имя>`; сервисные файлы импортируют общие типы из `common/`.

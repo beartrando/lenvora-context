@@ -1,13 +1,11 @@
 # Responsibility
 
-- Pnpm workspace (`pnpm-workspace.yaml`: пакеты `services/*` и `shared/*`) и turbo-таски
-  (`turbo.json`: `build`, `dev`).
-- Общая TypeScript-база (`tsconfig.base.json`, без path-алиасов — `@shared/*` резолвится
-  через workspace-линки `workspace:*`).
-- Локальная разработка: `Makefile` + `make/*.mk` (`make/parameters.mk` — списки сервисов:
-  `NODE_SERVICES`, `PRISMA_SERVICES`, `FLUTTER_SERVICES`), `docker-compose.yml`
-  (рабочая копия, генерируется из `docker-compose.yml.dist`).
-- Развёртывание: `docker-compose.yml.deploy.dist` (GHCR-образы, теги из `.env.dist`)
-  и `.github/workflows/` (build → GHCR → деплой по SSH поверх docker-compose).
-- Git-структура: сервисы и `proto/` — submodules (`.gitmodules`), `shared/` — обычная
-  часть этого репозитория.
+- Инициализация проекта: `make install`, `make install-deploy` — подмодули, `.env` сервисов, `docker-compose.yml` из `.dist`, proto-генерация, миграции.
+- Запуск dev-стека: `make up` (`docker compose up` по `docker-compose.yml.dist`).
+- Миграции, сиды, Prisma: `make migrate`, `make prod-migrate`, `make prisma-generate`, `make seed`.
+- Генерация клиентского/серверного кода из proto-контрактов: `make proto-generate`.
+- Сборка и тесты сервисов: `make build`, `make test`; сброс стека/БД: `make reset`, `reset-db`, `reset-kafka`.
+- Git-операции по всем репозиториям монорепы: `make git-commit-all`, `git-push-all`, `git-pull-all` (`make/git.mk`).
+- CI/CD: `.github/workflows/*` — сборка и пуш образов в GHCR по событию из репозитория сервиса, деплой docker-compose по событию (GKE — событие не отправляется, k8s — только вручную), очистка реестра, автоматический promote `dev` → `uat` → `prod`.
+- Workspace: `pnpm-workspace.yaml` (`services/*`, `shared/*`, overrides `@shared/*` → `workspace:*`), `turbo.json`, `tsconfig.base.json`.
+- Версии образов для деплоя: `.env.dist` → `.env` (`*_VERSION=dev`).

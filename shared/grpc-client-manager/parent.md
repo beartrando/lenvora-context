@@ -1,3 +1,3 @@
 # Parent
 
-[../../shared**/CONTEXT](../../../shared**/CONTEXTpurpose.md).
+Уровень shared: [../](../purpose.md)

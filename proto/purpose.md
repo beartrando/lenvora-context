@@ -1,5 +1,7 @@
-# Proto — контракты сервисов (gRPC / protobuf)
+# proto/ — gRPC/protobuf-контракты сервисов Lenvora (отдельный репозиторий-подмодуль)
 
-Единственный источник определений RPC и сообщений для всего проекта: git-submodule
-`lenvora-proto` с `.proto`-файлами. Отсюда генерируется и TypeScript-код для сервисов,
-и Dart-код для клиента.
+Исходники `.proto`: сервисы (auth, gusteau, orchestration, profile, remy, speech-to-text, streaming) и общие типы в `common/`.
+
+Единый источник контрактов: код потребителей генерируется из него командой `make proto-generate` в [корне](../purpose.md).
+
+Подключён как git-submodule (`.gitmodules` → `lenvora-proto.git`) и версионируется отдельно.

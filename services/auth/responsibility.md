@@ -1,7 +1,8 @@
 # Responsibility
 
-- gRPC-сервер `Auth` (`anonymousSignIn`, `get`, `logout`, `refreshTokens`) + `Health`.
-- JWT `AuthService` (access/refresh), интерфейс — `application/ports/token-service.port.ts`.
-- Prisma-модели `User`, `Session`, `Device` (БД `auth`).
-- Kafka: produce `user.created` (событие уходит из use-case через pg-boss-мост).
-- Health-хендлер: агрегирует db/kafka/job.
+- Анонимная регистрация по `deviceId`: создание пользователя, устройства и сессии в одной Prisma-транзакции.
+- Выдача и ротация пары access/refresh JWT (`ACCESS_SECRET` / `REFRESH_SECRET`), logout — удаление сессий пользователя.
+- Хранение и чтение пользователей (`users`), сессий (`sessions`), устройств (`devices`).
+- Публикация события `user.created` в Kafka при новом пользователе (через pg-boss bridge).
+- gRPC-поверхность `Auth` + единый health (`Check/Status/Livez/Readyz`).
+- Верификация собственных токенов для вызывающих сторон (metadata `authorization: Bearer …`).

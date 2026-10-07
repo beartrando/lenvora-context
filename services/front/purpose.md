@@ -1,5 +1,5 @@
-# Front — Flutter-клиент
+# front — Flutter-клиент Lenvora (mobile, desktop, web)
 
-Кроссплатформенный клиент (Android/iOS/Web/Desktop, Flutter 3.9): интерфейс игры,
-аутентификация, профиль, настройки, in-app обновления. Единственный потребитель
-внешних API платформы (HTTP gateway, WebSocket streaming).
+Клиентское приложение: анонимная авторизация по устройству, профиль, настройки, локализация (en/ru/uk), Firebase Crashlytics/Analytics, in-app update на Android.
+
+Общается с бэкендом через HTTP [gateway](../gateway/purpose.md) (`GATEWAY_HOST:GATEWAY_PORT`) и имеет инфраструктуру WebSocket к [streaming](../streaming/purpose.md) (`STREAMING_HOST:STREAMING_PORT`).

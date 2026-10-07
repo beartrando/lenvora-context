@@ -1,14 +1,8 @@
 # Responsibility
 
-- WebSocket-сервер (`WEBSOCKET_PORT ?? 8080`) с heartbeat-циклом (5s ping).
-- `ConnectionHandler` — аутентификация (`?token=` или Bearer), авторизация профиля
-  (gRPC `profile.GetByUser`), кодирование (protobuf по умолчанию / JSON при `x-debug-json`),
-  диспатч по путям (`/event`), обработка закрытия.
-- Реестр `EventWebsocketsRegistry` на двух in-memory `StateStore`
-  (socket → контекст, profileId → socket) и `EventWebsocketSender` (отправка `EventObject`).
-- gRPC-сервер `Health` на `:50051`.
-- Форвардинг аудио-чанков в `speech-to-text`: клиент шлёт чанки по WS → сервис открывает
-  bidi-gRPC-поток в `SERVICE_SPEECH_TO_TEXT_URL`, первым сообщением передаёт auth
-  (`profile_id` + JWT), далее — чанки; финальная транскрипция из потока отправляется
-  клиенту по WS (`speech-to-text` дополнительно публикует её в Kafka сам).
-- Kafka: produce `bot.connecting-request` (единственный продюсер-топик, через pg-boss-мост).
+- Приём WS-соединений на маршруте `/event`: токен из `Authorization: Bearer` или `?token=`, `profileId` из query, heartbeat ping/pong каждые 5 с, terminate по таймауту.
+- Проверка JWT локально по `ACCESS_SECRET` и сверка профиля с пользователем через gRPC [profile](../profile/purpose.md) (`AuthorizeProfileUseCase`).
+- Голосовая сессия: `VoiceStreamUseCase` лениво открывает поток `SpeechToText.Transcribe` на `audio_start`, прокидывает `audio_chunk`/`audio_stop`, отправляет клиенту `transcription`/`error`.
+- Кодирование WS-сообщений: protobuf по умолчанию, значение `SocketEncoding` из контекста сокета.
+- Инфраструктурная доступность: gRPC health `check/status/livez/readyz` (компоненты pg-boss, Kafka, WS), корректный старт/останов по SIGINT/SIGTERM.
+- Мост pg-boss → Kafka для темы `bot.connecting-request` (`infrastructure/job/service.ts`).

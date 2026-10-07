@@ -1,9 +1,9 @@
 # Responsibility
 
-- UI-экраны и роутинг (`lib/features/*`, `lib/router.dart`, `lib/app.dart`).
-- Домен клиента (`lib/domain/{profile,setting}`).
-- Инфраструктура клиента: HTTP к gateway (`GATEWAY_PORT`, по умолчанию 9090),
-  WebSocket к streaming (`ws://host:port/<path>?token=...`), хранилища, auth,
-  локализация, protobuf-контракты в Dart.
-- Сборка и релиз: собственный `Makefile`, `android/gradlew`, GitHub Actions
-  (`.github/workflows/deploy.yml` → Google Play internal/production).
+- Экраны и маршруты: `/` (home), `/settings`, `/profile`; тема и локализация через `flutter_localizations`.
+- Анонимная авторизация: `anonymousSignIn` по `deviceId`, `refreshTokens`, `verify`; токены в secure storage, повторное создание access token при старте.
+- HTTP-доступ: `HttpConfig`/`HttpClient`/`AuthorizedHttpClient` на gateway (`/auth/*`, `/profile/*`), конвертация proto-ответов.
+- WebSocket-инфраструктура к streaming (`StreamingConfig`, `WebsocketConnection`, heartbeat 10 с) — к экранам не подключена.
+- Настройки (SharedPreferences + `SettingDomain`), идентификация устройства, проверка обновлений (`in_app_update`, Android).
+- Firebase: инициализация best-effort, Crashlytics-репортинг ошибок (Android/iOS/macOS), аналитика; на Linux инициализация Firebase пропускается, репортёр на web/windows не подключается.
+- Генерация env-файлов и protobuf-контрактов (`env/generate.dart`, `make proto-generate`).

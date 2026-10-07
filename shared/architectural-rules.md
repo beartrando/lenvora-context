@@ -1,15 +1,8 @@
 # Architectural rules
 
-- Каждый пакет собирается независимо (`dist/` в .gitignore — не коммитится);
-  потребитель видит только `dist/index.js` + `index.d.ts`.
-- Тестов и jest-конфигурации у shared-пакетов нет.
-- Jest сервисов маппит `@shared/*` на исходники (`<rootDir>/../../shared/$1/src`) —
-  правки shared видны в тестах сервисов без сборки.
-- `shared/errors` генерируется своим скриптом `proto:generate`
-  (`outputServices=none`, только `common/error.proto`).
-- `grpc-client-manager` покрывает **только unary-вызовы** (`call(fn)` с ретраем);
-  stream/bidi-RPC им не обслуживаются — для таких каналов потребители создают отдельные
-  grpc-js клиенты в своей инфраструктуре (см. streaming → speech-to-text).
-- Расширение `ErrorCode` (`proto/common/error.proto`) — волновой шаг: proto →
-  codegen `@shared/errors` → новые классы → экспорт → маппинг в хендлерах сервисов;
-  выполняется осознанно, одной волной.
+- Библиотеки не импортируют код `services/*` и не подключают `proto/*` напрямую: `errors` получает контракт копией, сгенерированной скриптом, а не импортом.
+- Зависимости между библиотеками направлены только вниз: `logger` ← `kafka-manager` / `grpc-client-manager` / `pg-boss-manager`; `kafka-manager` ← `pg-boss-manager`. Обратных связей нет.
+- Публичный контракт библиотеки — только `exports["."]` из `src/index.ts`; внутренние модули (`src/internal/*` у pg-boss-manager) наружу не выдаются.
+- Изменения `shared/*` выполняются в их submodule-репозиториях; в монорепу попадают как обновление указателя submodule.
+- Новая библиотека в `shared/` повторяет общий шаблон (`package.json`, `tsconfig.json`, скрипты, README) и добавляется в `.gitmodules` и в `overrides` корневого `pnpm-workspace.yaml`.
+- Версии зависимостей от `@shared/*` внутри `shared/` — `workspace:*` (в собственных lockfile'ах сабмодулей остаются `git+https…#v1.0.0`, в монорепе их перекрывает корневой override).

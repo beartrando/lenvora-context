@@ -1,3 +1,3 @@
 # Parent
 
-[..**/CONTEXT](../..**/CONTEXTpurpose.md).
+Родитель — уровень [services/](../purpose.md).

@@ -1,5 +1,7 @@
 # Non-responsibility
 
-- Логированием (→ [../logger/](../../logger**/CONTEXTpurpose.md)), маппингом ошибок в gRPC-ответы —
-  это делают хендлеры сервисов (`infrastructure/grpc/handlers/callback.error.ts`),
-  транспортных ошибок Kafka/pg-boss.
+- Не транслирует ошибки в gRPC/HTTP-ответы — маппинг `DomainError.code` в ответ делают хендлеры сервисов (`services/*/src/infrastructure/grpc/handlers/callback.error.ts`).
+- Не логирует: вывод ошибок — в потребителях через [logger](../logger/purpose.md).
+- Не генерирует proto-клиентов и не хранит другие контракты (`health`, `response`, `empty` и т.д. — у сервисов в `src/contracts`, кодоген — уровень [proto](../../proto/purpose.md)).
+- Не описывает бизнес-исключения домена конкретного сервиса — только общие инфраструктурные ошибки.
+- Не валидирует данные и не бросает ошибки самостоятельно: классы — декларативные типы.

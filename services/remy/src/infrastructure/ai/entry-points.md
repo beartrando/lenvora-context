@@ -1,11 +1,6 @@
 # Entry points
 
-- `AiService.process(text: string): Promise<string>` — единственная публичная операция.
-- `AiService` (конструктор с `AiConfig`) — создание через фабрику `createAiClient`.
-- `createAiClient(config)` — фабричная функция, единственный способ получить клиент.
-
-`AiConfig` (`{apiKey, baseUrl, model}`) передаётся в конструктор явно: конфига из
-окружения в модуле нет.
-
-Снаружи модуль пока не выведен: ни один файл вне `src/infrastructure/ai/` его не
-импортирует; в `application/use-cases/process/process.ts` есть только TODO на подключение.
+- Программный вход: `AiService` — `new AiService(aiConfig).process(text)`; альтернативно `createAiClient(config)` для прямой работы с портом `AiClient`.
+- Env-вход: `OPENROUTER_API_KEY`, `AI_BASE_URL`, `AI_MODEL` (читаются в `configs/openrouter.ts` при импорте).
+- Тестовый вход: `service.spec.ts` через `pnpm test` (в сервисе remy, jest + `jest.setup.ts`).
+- Отдельного процесса, порта или CLI у узла нет; запуск — только в составе сервиса remy.

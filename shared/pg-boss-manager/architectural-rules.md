@@ -1,11 +1,9 @@
 # Architectural rules
 
-- Порядок старта в сервисах: `message.start()` → `job.start()` → `db.start()` →
-  `grpc.start()`; мост Kafka запускается после успешного connect.
-- Ключевой контракт для сервисов: имя очереди pg-boss == имя Kafka-топика
-  (например `user.created`), поэтому `producers.config.ts` сервиса задаёт и топик
-  Kafka, и очередь.
-- `enqueueTx` обязателен для событий, которые должны уйти вместе с бизнес-данными
-  в одной транзакции (пример: `auth` при анонимном входе).
-- Пакетованные `package-lock.json` (npm) в каталогах `kafka-manager`,
-  `grpc-client-manager`, `pg-boss-manager` — артефакты, проект использует pnpm.
+- Один синглтон `pgBossManager` на процесс; сервис вызывает `start()` без await (`void`) и дальше ждёт `waitUntilReady()`.
+- Внешний код работает только с публичными методами и членами `workers` / `queue` / `kafka`; `src/internal/*` не публикуется (кроме типа `SqlExecutor`).
+- Внутренние менеджеры зависят от интерфейса `BossProvider`, а не от класса.
+- Переподключение и восстановление воркеров происходят внутри библиотеки — сервис не перерегистрирует воркеров после сбоя.
+- `enqueueTx` принимает только транзакцию, реализующую `$queryRawUnsafe` (Prisma-tx потребителя) — SQL вставки в `pgboss.job` зашит в библиотеке.
+- `DATABASE_URL` читается библиотекой из окружения; `PgBossConfig` задаётся потребителем (конфиг в `services/*/src/infrastructure/job/`, env `PG_BOSS_MAX`, `PG_BOSS_MAINTENANCE_INTERVAL_SECONDS`, `PG_BOSS_APPLICATION_NAME`).
+- Мост `kafka.start(config, topic)` запускается сервисом на каждый топик из его `producers.config`.

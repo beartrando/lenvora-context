@@ -1,6 +1,8 @@
 # Important files
 
-- `service.ts` — `AiService`: единственная операция `process(text)`.
-- `clients/create-ai-client.ts` — фабрика, точка выбора провайдера.
-- `clients/openrouter.ts` — реализация `AiClient` на SDK `openai`.
-- `service.spec.ts` — юнит, фиксирующий контракт «конструктор → фабрика, process → chat».
+- `service.ts` — фасад `AiService`, точка входа для application-слоя.
+- `interfaces/ai-client.interface.ts` — порт, через который узел используется извне.
+- `clients/create-ai-client.ts` — фабрика, место подмены провайдера.
+- `clients/openrouter.ts` — единственное место с SDK `openai` (базовый URL + ключ + модель).
+- `configs/openrouter.ts` — чтение env и значения по умолчанию.
+- `service.spec.ts` — покрытие фасада (мок фабрики).

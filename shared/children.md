@@ -1,7 +1,7 @@
 # Children
 
-- [errors/](../errors**/CONTEXTpurpose.md) — иерархия `DomainError` и их proto-коды (общий словарь ошибок).
-- [logger/](../logger**/CONTEXTpurpose.md) — минимальный консольный логгер с таймстампом и стеком.
-- [kafka-manager/](../kafka-manager**/CONTEXTpurpose.md) — продюсер/консьюмер/топики поверх kafkajs.
-- [grpc-client-manager/](../grpc-client-manager**/CONTEXTpurpose.md) — gRPC-клиент с ретраем и переподключением.
-- [pg-boss-manager/](../pg-boss-manager**/CONTEXTpurpose.md) — очереди pg-boss, воркеры и мост pg-boss → Kafka.
+- [logger/](logger/purpose.md) — консольный логгер с меткой времени и локацией вызова.
+- [errors/](errors/purpose.md) — доменные ошибки с кодами proto-контракта `common.error`.
+- [kafka-manager/](kafka-manager/purpose.md) — обёртка над kafkajs: producer, consumer, создание топиков.
+- [grpc-client-manager/](grpc-client-manager/purpose.md) — вызов gRPC-клиентов с reconnect и повторной попыткой.
+- [pg-boss-manager/](pg-boss-manager/purpose.md) — менеджер очереди pg-boss: воркеры, задачи, мост в Kafka.

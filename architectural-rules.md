@@ -1,17 +1,10 @@
 # Architectural rules
 
-- **Git-submodules**: `services/{auth,gateway,profile,remy,gusteau,front,orchestration,
-  streaming,speech-to-text}` и `proto/` — отдельные репозитории; правки в них коммитятся
-  в свои репозитории (`make git-commit-all`).
-- **Топология dev-запуска** (сеть `backend`): gateway публикует `9090`, kafka `9092`,
-  postgres `5432`; остальные сервисы внутри сети. Все сервисы зависят от `pgbouncer`
-  (а auth/profile/orchestration/gusteau/streaming/speech-to-text — ещё от `kafka`).
-- **Пересборка Docker-образов** (`docker compose build`) не выполняется без явного
-  указания пользователя: dev-контейнеры получают код и конфиги через volume-монтирования
-  docker-compose (`src`, `package.json`, jest-конфиги remy, `shared`) и пересоздаются
-  через `docker compose up -d`.
-- **Деплой**: активен путь docker-compose поверх SSH (`deploy-docker-compose.yml`,
-  триггерится из `build-and-push.yml`); workflows `deploy-ssh-k8s.yml` (manual) и
-  `deploy-gke.yml` — legacy. `README.md` описывает план K3s — это план, не факт.
-- **Codegen**: proto генерируется отдельно для каждого пакета (см. `proto**/CONTEXT`),
-  не централизованно.
+- Весь прикладной код живёт в подмодулях (`services/*`, `shared/*`, `proto/`); на корне — только конфигурация и инструменты.
+- `docker-compose.yml` и `.env` генерируются из `.dist`-шаблонов и не коммитятся (`.gitignore`).
+- `@shared/*` всегда резолвятся как workspace-модули: overrides только в `pnpm-workspace.yaml` корня (overrides внутри подмодулей игнорируются).
+- Код из proto генерируется исключительно через `make proto-generate`; результат живёт в потребителях (`services/<svc>/src/contracts/proto`, `services/front/lib/contracts/proto`).
+- Состав списков сервисов — только в `make/parameters.mk` (`NODE_SERVICES`, `PRISMA_SERVICES`, `FLUTTER_SERVICES`, `GIT_SERVICES`); новые сервисы добавляются там.
+- CI: сборка образов и деплой запускаются по `repository_dispatch`; ветки `dev` → `uat` → `prod` промотятся автоматически (push в `dev` → merge в `uat`, push в `uat` → merge в `prod`).
+- Деплой-образы версируются тегом из `*_VERSION` в `.env`; образы — `ghcr.io/beartrando/lenvora-<service>/service`.
+- Git-операции по всем репозиториям монорепы — через цели `make/git.mk` (единая ветка `dev`).

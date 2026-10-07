@@ -1,6 +1,6 @@
 # Important files
 
-- `common/error.proto` — коды ошибок, на которых построен `@shared/errors`.
-- `common/health.proto` — контракт health-эндпоинтов всех сервисов и gateway-агрегатора.
-- `gusteau.proto` (`EventObject`) — событийная модель для streaming.
-- `speech-to-text.proto` — bidi-контракт распознавания (добавляется).
+- `<service>.proto` (auth, gusteau, orchestration, profile, remy, speech-to-text — gRPC-сервисы; streaming — только сообщения) — контракты сервисов.
+- `common/error.proto`, `common/response.proto`, `common/empty.proto` — переиспользуемые типы ответов/ошибок.
+- `common/health.proto`, `common/ping.proto`, `common/key_value.proto` — служебные типы.
+- `.gitignore` — игнорирует `**/CONTEXT`.

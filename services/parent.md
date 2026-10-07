@@ -1,4 +1,5 @@
 # Parent
 
-[..**/CONTEXT](../..**/CONTEXTpurpose.md) — корень владеет workspace-конфигурацией и запуском;
-наш уровень владеет содержимым приложений.
+Родитель — корень монорепозитория: [корень](../purpose.md).
+
+Корень владеет docker-compose-топологией, Makefile-командами, pnpm/turbo workspace и submodule'ами `services/*`.

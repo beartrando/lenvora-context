@@ -1,6 +1,13 @@
 # Dependency direction
 
-- shared → shared (только перечисленные выше рёбра) и shared → `proto` (только codegen у errors).
-- **shared никогда не импортирует сервисы** и не знает об их существовании.
-- Сервисы → shared через `"@shared/<pkg>": "workspace:*"`; запрещено копирование кода
-  shared в сервисы и обратное переиспользование кода сервисов в shared.
+```text
+services/*  →  @shared/*  →  { kafkajs, pg-boss, @grpc/grpc-js, @bufbuild/protobuf }
+                                @shared/logger ← kafka-manager, grpc-client-manager, pg-boss-manager
+                                @shared/logger ← @shared/kafka-manager ← @shared/pg-boss-manager
+                                proto/common/error.proto ─генерация─→ @shared/errors
+```
+
+- Направление только `services → shared`: библиотеки не знают о сервисах и не могут от них зависеть.
+- `logger` — нижний слой `shared/`, не зависит ни от одной библиотеки; `errors` зависит только от proto-контракта.
+- Порядок сборки: `logger` → `kafka-manager`/`grpc-client-manager` → `pg-boss-manager` → сервисы (турбо `^build`).
+- Потребители каждой библиотеки перечислены в её dependency-direction — факты проверены grep'ом по `services/*`.

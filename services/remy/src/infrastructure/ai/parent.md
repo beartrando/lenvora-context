@@ -1,3 +1,3 @@
 # Parent
 
-[../../..**/CONTEXT](../../../CONTEXT/purpose.md) — сервис remy.
+Родитель — [remy](../../../purpose.md).

@@ -1,7 +1,5 @@
-# Purpose
+# remy/src/infrastructure/ai — AI-клиент сервиса remy: порт, провайдер, конфиг
 
-Адаптер AI-провайдера для Remy: минимальная точка «текст → модель → текст».
+Инкапсулирует вызов LLM для remy: порт `AiClient`, фабрика `createAiClient`, реализация OpenRouter через SDK `openai`, конфиг из env и фасад `AiService`.
 
-Скрывает за собой SDK `openai` и провайдер OpenRouter (OpenRouter-совместимый API),
-чтобы выше по стеку не знать ни про ключи, ни про формат чат-комплитов. Сама логика
-модуля описана сценариями в [responsibility.md](responsibility.md).
+Не знает о gRPC и use-case'ах remy; в `composition/build-application.ts` сервис пока не подключён.

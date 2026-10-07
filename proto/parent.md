@@ -1,5 +1,3 @@
 # Parent
 
-[..**/CONTEXT](../..**/CONTEXTpurpose.md) — владеет сабмодулем (`git submodule update`),
-оркестрацией codegen (`make proto-generate`) и тем, что контракты потребляются
-всеми детьми корня.
+[Корень](../purpose.md) — собирает, запускает и деплоит монорепозиторий; команда генерации кода из контрактов (`make proto-generate`) — в его Makefile.

@@ -1,10 +1,8 @@
 # Responsibility
 
-- gRPC-сервер `Orchestration` (`Proxy`) + `Health` на `:50051`.
-- Собственный `Router` (метод + путь → handler) поверх `ProxyRequest`:
-  маршруты `POST /auth/anonymousSignIn`, `GET /auth/getMe`, `POST /auth/refreshTokens`,
-  `POST /auth/verify`, `GET /profile/getMe`, `GET /profile/get`.
-- gRPC-клиенты `auth` и `profile` (через `@shared/grpc-client-manager`).
-- Транспортная авторизация: middleware `jwt-from-proxy-request`, `authorizationRequired` у маршрута.
-- Prisma-подключение с `check()` (схема без моделей — используется только health-проверка).
-- Health-использование db/message/job.
+- Роутинг HTTP-подобных запросов внутри gRPC `Proxy`: точное совпадение метода и пути, ответ 404 c `ErrorCode.NOT_FOUND` при отсутствии маршрута.
+- Авторизация: извлечение `Authorization: Bearer …` из заголовков запроса и `verifyAccessToken` (`ACCESS_SECRET`); `TokenExpiredError` → 401 `ErrorCode.TOKEN_EXPIRED`.
+- Оркестрация use-case'ов: вызовы `auth.AnonymousSignIn/RefreshTokens/Logout/Get` и `profile.GetOrCreate/Get/GetByUser` по gRPC.
+- Сценарий регистрации: `anonymousSignIn` → `profile.GetOrCreate` с полученным access-токеном.
+- Сборка ответа: `ResponseAdapter` → `ProxyResponse{statusCode: 200, content-type: JSON, body}`.
+- Health `Check/Status/Livez/Readyz` (db, kafka, pg-boss) на своём gRPC-порту.

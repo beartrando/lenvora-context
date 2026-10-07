@@ -1,23 +1,10 @@
 # Structure
 
-```
-src/
-├── app.ts
-├── composition/build-application.ts     # wiring: job → message → health → process → grpc
-├── application/
-│   ├── application.ts                   # lifecycle: message → job → grpc
-│   └── use-cases/
-│       ├── health/{health,status,livez,readyz}.ts   # health-хендлеры
-│       └── process/process.ts           # ЗАГЛУШКА: эхо + VALIDATION_FAILED на пустой текст
-├── infrastructure/
-│   ├── ai/                              # AiService, фабрика, OpenRouterClient — НЕ подключён
-│   │                                    # (логика сценариями → src/infrastructure/ai/CONTEXT)
-│   ├── app/                             # app.config
-│   ├── db/                              # DbService + пустая schema.prisma (моделей нет),
-│   │                                    # слой по решению не трогаем
-│   ├── grpc/                            # service.ts: регистрация RemyService + Health
-│   │   └── handlers/{remy,health,callback.error}
-│   ├── job/, message/                   # продюсеры/консьюмеры пустые
-│   └── utils/sleep.ts
-└── contracts/proto/                     # сгенерированные ts-proto (gitignored)
-```
+Слой Node.js/TypeScript-сервиса:
+
+- `src/app.ts` — точка входа → `composition/build-application.ts` (единственный wiring).
+- `src/application` — `Application`, use-case'ы `process/process.ts` и `health/*`, порт `TokenServicePort`.
+- `src/domain` — только VO (`UserId`, `ProfileId`, `SessionAccessToken`) и заготовки сущностей `user`/`profile`; схема БД без моделей.
+- `src/infrastructure` — `grpc` (сервер, `RemyHandler`), `ai/` (дочерний узел: `service.ts`, `clients/`, `configs/`, `interfaces/`), `message` (Kafka), `job` (pg-boss), `auth` (JWT), `db` (Prisma), `app`-конфиг.
+- `src/contracts/proto` — генерируемые типы из [proto](../../proto/purpose.md) (в git-игноре).
+- Тесты: `src/application/use-cases/process/process.spec.ts`, `src/infrastructure/grpc/handlers/remy.handler.spec.ts`, `src/infrastructure/ai/service.spec.ts`, `jest.setup.ts` (мокает `@shared/logger`).

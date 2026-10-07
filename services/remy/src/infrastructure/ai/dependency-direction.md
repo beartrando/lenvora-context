@@ -1,8 +1,7 @@
 # Dependency direction
 
-- `ai/` → только сам себя и SDK `openai`. Никаких импортов из `application/`,
-  `contracts/`, `@shared/*` нет — модуль не знает о Remy.
-- Наружу направлен абстракцией, а не реализацией: потребителю нужен
-  `AiClient`/`AiService`, а `OpenRouterClient` и env-конфиг скрыты за фабрикой.
-- Ожидаемое подключение (по TODO в use-case): `application/` → AI-порт → `AiService`,
-  сборка в `composition/build-application.ts`. Порт в `application/ports/` пока не заведён.
+- Внутрь: `AiService` → (`clients/create-ai-client` → `clients/openrouter`) → SDK `openai`; `configs/openrouter` → `interfaces/ai-config`.
+- Узел зависит только от собственных `interfaces/` — ни от домена, ни от application-слоя remy.
+- Наружу: исходящий HTTPS-вызов к `AI_BASE_URL`; ответ возвращается строкой вверх по вызову.
+- Вход в узел: импорт `AiService` (или `createAiClient`) из application-слоя remy; сам узел ничего не импортирует из remy.
+- Связь с gRPC-контрактом отсутствует: конвертация `RemyResponse` остаётся задачей `application`/`infrastructure/grpc`.

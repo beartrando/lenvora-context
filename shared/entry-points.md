@@ -1,5 +1,11 @@
 # Entry points
 
-Нет — это библиотеки. Импорт: `import logger from "@shared/logger"` и т. п.
-Точки сборки: `pnpm --filter @shared/<pkg> build` (в Docker — до сборки сервиса,
-в порядке logger → grpc-client-manager → errors → kafka-manager → pg-boss-manager).
+Точка входа каждой библиотеки — единственный корневой экспорт `@shared/<name>` (`exports["."]` → `dist/index.js` + `dist/index.d.ts`). Subpath-экспортов (`./foo`) нет:
+
+- [logger](logger/purpose.md) — default и именованный `logger`;
+- [errors](errors/purpose.md) — именованные классы ошибок (10 экспортов);
+- [kafka-manager](kafka-manager/purpose.md) — функции и типы Kafka;
+- [grpc-client-manager](grpc-client-manager/purpose.md) — `GrpcClientManager` и его типы;
+- [pg-boss-manager](pg-boss-manager/purpose.md) — default-синглтон `pgBossManager` + типы.
+
+Детали экспорт-точек — в entry-points соответствующей библиотеки.
